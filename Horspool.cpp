@@ -3,8 +3,8 @@
 #include <ctime>
 #define MAX 5000
 using namespace std;
-int t[MAX];
 double total_time,start,end;
+int t[MAX];
 void shifttable(char p[])
 {
     int i,j,m;

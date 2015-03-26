@@ -8,17 +8,22 @@ int list[max_length];
 double total_time,start,end,d1;
 void selectionSort()
 {
-    int temp;
+    int temp;long mini;
     for(long i=0;i<length-1;i++)
     {
+        mini=i;
         for(long j=i+1;j<length;j++)
         {
-            if(list[i]>list[j])
+            if(list[mini]>list[j])
             {
-                temp=list[j];
-                list[j]=list[i];
-                list[i]=temp;
+                mini=j;
             }
+        }
+        if(mini!=i)
+        {
+            temp=list[i];
+            list[i]=list[mini];
+            list[mini]=temp;
         }
     }
 }
