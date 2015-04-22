@@ -30,12 +30,8 @@ void DFS()
     int ver,v;
     discovered[sv]=1;
     stacks.push_front(sv);
-    while(!stacks.empty())
-    {
-        ver=stacks.back();
-        depth(ver);
-    }
-
+    ver=stacks.back();
+    depth(ver);
 }
 
 int main()
