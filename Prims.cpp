@@ -66,4 +66,5 @@ int main()
     }
     prims();
     print();
+    return 0;
 }

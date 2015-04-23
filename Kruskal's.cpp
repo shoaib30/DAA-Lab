@@ -52,4 +52,5 @@ int main()
     cout<<"\nThe edges of spanning tree are\n";
     kruskal();
     cout<<"\nmin_cost="<<min_cost;
+    return 0;
 }

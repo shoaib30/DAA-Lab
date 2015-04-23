@@ -68,4 +68,5 @@ int main()
     cin>>sv;
     djk();
     print();
+    return 0;
 }
