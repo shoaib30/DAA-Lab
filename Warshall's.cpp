@@ -2,13 +2,6 @@
 using namespace std;
 int V;
 int graph[20][20];
-int max(int a,int b)
-{
-    if(a>b)
-        return a;
-    else
-        return b;
-}
 void warshall()
 {
     int i,j,k;
