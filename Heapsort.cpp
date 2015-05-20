@@ -1,61 +1,87 @@
 #include<iostream>
+#include<cstdlib>
+#include<ctime>
 using namespace std;
 
-void heapify(int H[],int N)
+
+void heapify(int heap[],long n)
 {
-    int i,j,heap,k,v;
-    for(i=(N/2);i>=1;i--)
+    long i,j,k;
+    int flag,v;
+    for(i=(n/2);i>=1;i--)
     {
-        k=i;
-        v=H[k];
-        heap=0;
-        while (!heap && (2*k)<=N)
+        k=i;flag=0;v=heap[k];
+        while(!flag && 2*k<=n)
         {
             j=2*k;
-            if(j<N)
+            if(j<n)
             {
-                if(H[j]<H[j+1])
+                if(heap[j]<heap[j+1])
                     j=j+1;
             }
-            if(v>=H[j])
-                heap=1;
+            if(v>=heap[j])
+                flag=1;
             else
             {
-                H[k]=H[j];
+                heap[k]=heap[j];
                 k=j;
             }
         }
-        H[k]=v;
+        heap[k]=v;
     }
 }
 
-void heapsort(int H[], int N)
+void adjust(int heap[],long n)
 {
-    if(N==0)
+    int i=1,flag,v; long j,k;
+    k=i;flag=0;v=heap[k];
+    while(!flag && 2*k<=n)
+    {
+        j=2*k;
+        if(j<n)
+        {
+            if(heap[j]<heap[j+1])
+                j=j+1;
+        }
+        if(v>=heap[j])
+            flag=1;
+        else
+        {
+            heap[k]=heap[j];
+            k=j;
+        }
+    }
+    heap[k]=v;
+}
+
+
+
+void heapsort(int heap[],long n)
+{
+    if(n==0)
         return;
-    int temp;
-    temp=H[1];
-    H[1]=H[N];
-    H[N]=temp;
-    cout<<H[N]<<" , ";
-    heapify(H,N-1);
-    heapsort(H,N-1);
+    heap[1]=heap[n];
+    n=n-1;
+    adjust(heap,n);
+    heapsort(heap,n);
 }
 
 int main()
 {
-    int i,j,N;
-    cout<<"Enter Size of heap :";
-    cin>>N;
-    int H[N+1];
-    cout<<"\nEnter Values into heap: ";
-    for(i=1;i<=N;i++)
-        cin>>H[i];
-    heapify(H,N);
-    cout<<"\nHeapified :";
-    for(i=1;i<=N;i++)
-        cout<<H[i]<<" , ";
-    cout<<"\nSorted : ";
-    heapsort(H,N);
+    double start,end,total_time;
+    const long max_length=100000;
+    int heap[max_length];
+    long i,j;
+    for(i=1000;i<max_length;i+=10000)
+    {
+        for(j=1;j<=i;j++)
+            heap[j]=rand();
+        start=clock();
+        heapsort(heap,i);
+        end=clock();
+        total_time=((double)end-start)/CLOCKS_PER_SEC;
+        cout<<"\n\nLength: "<<i;
+        cout<<"\nTime: "<<total_time;
+    }
     return 0;
 }
