@@ -1,7 +1,7 @@
 #include<iostream>
 using namespace std;
 
-int w[10],p[10],v[10][10],n,i,j,cap,x[10]={0};
+int w[10],p[10],v[10][10];
 
 int max(int i,int j)
 {
@@ -22,6 +22,7 @@ int knap(int i,int j)
 }
 int main()
 {
+    int i,j,n,x[10]={0},cap;
     int profit,count=0;
     cout<<"\nEnter the number of elements\n";
     cin>>n;
@@ -50,11 +51,9 @@ int main()
     {
         if(v[i][j]!=v[i-1][j])
         {
-        x[i]=1;
-        j=j-w[i];
-        i--;
+            x[i]=1;
+            j=j-w[i];
         }
-        else
         i--;
     }
     cout<<"Items included are\n";
