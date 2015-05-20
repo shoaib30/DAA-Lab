@@ -1,53 +1,81 @@
 #include<iostream>
+#include<math.h>
 using namespace std;
-#define N 4
-void print(int board[N][N])
-{
-    for (int i = 0; i < N; i++)
-    {
-        for (int j = 0; j < N; j++)
-            cout<<board[i][j]<<" ";
-        cout<<"\n";
-    }
+int board[100][100],n,x[100];
+int feasible(int, int);
+int count = 0;
+void printsolution()
+{count++;
+	for(int i=0;i<n;i++)
+	{	
+		for(int j=0;j<n;j++)
+		{
+			cout<<board[i][j]<<"\t";
+		}
+		cout<<endl;
+	}
 }
-int isSafe(int board[N][N], int row, int col)
+
+void nqueen(int row)
 {
-    int i, j;
-    for (i = 0; i < col; i++)//Check this row on left side
-        if (board[row][i])
-            return false;
-    for (i = row, j = col; i >= 0 && j >= 0; i--, j--)//Check upper diagonal on left side
-        if (board[i][j])
-            return false;
-    for (i = row, j = col; j >= 0 && i < N; i++, j--)//Check lower diagonal on left side
-        if (board[i][j])
-            return false;
-    return true;
+	int i,j;
+	if(row<n)
+	{	
+		for(i=0;i<n;i++)
+		{
+			if(feasible(row,i)==1)
+			{	
+				board[row][i]=1;
+				x[row]=i;//x[i] represents the column of queen in row i
+				//put queen and go to next row
+				nqueen(row+1);
+				//function will return only if its not valid or if a solution is found so erase that queen
+				board[row][i]=0;
+				x[row]=999;
+			}
+		}
+	}
+	else
+	{
+		cout<<"\nThe solution :\n";
+		printsolution();
+	}
 }
-int Nqueen(int board[N][N], int col)
+int abs(int a,int b)
 {
-    if (col >= N)
-        return true;
-    for (int i = 0; i < N; i++)
-    {
-        if ( isSafe(board, i, col) )
-        {
-            board[i][col] = 1;
-            if ( Nqueen(board, col + 1) == true )
-                return true;
-            board[i][col] = 0; // BACKTRACK
-        }
-    }
-    return false;
+	int c;
+	c=a-b;
+	if(c<0)
+		return -c;
+	else return c;
 }
+
+int feasible(int row,int column)
+{
+	int crow;
+	for(crow=0;crow<row;crow++)
+	{
+	 	if((x[crow]==column) || abs(x[crow],column) == abs (row,crow) )
+	 		return 0;
+	}
+	return 1;
+}
+
+
+
 int main()
 {
-    int board[N][N];
-    for(int i=0;i<N;i++)
-        for(int j=0;j<N;j++)
-            board[i][j]=0;
-    if ( Nqueen(board, 0) == false )
-      cout<<"Solution does not exist";
-    print(board);
-    return 0;
+	cout<<"\nEnter the number of queens";
+	cin>>n;
+	for(int i=0;i<n;i++)
+	{	
+		for(int j=0;j<n;j++)
+		{
+			board[i][j]=0;
+			x[i]=999;
+		}
+	}
+	nqueen(0);
+	cout<<"\n"<<count;
+	return 0;
 }
