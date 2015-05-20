@@ -19,7 +19,7 @@ int isSafe(int board[N][N], int row, int col)
     for (i = row, j = col; i >= 0 && j >= 0; i--, j--)//Check upper diagonal on left side
         if (board[i][j])
             return false;
-    for (i = row, j = col; j >= 0 && i < N; i++, j//Check lower diagonal on left side
+    for (i = row, j = col; j >= 0 && i < N; i++, j--)//Check lower diagonal on left side
         if (board[i][j])
             return false;
     return true;
